@@ -6,7 +6,7 @@ export const robotReducer = (state, action) => {
       return {
         ...state,
         isPlaced: true,
-        location: { x: payload.x, y: payload.y },
+        location: { x: parseInt(payload.x), y: parseInt(payload.y) },
         direction: payload.direction,
       };
     }
@@ -22,38 +22,55 @@ export const robotReducer = (state, action) => {
       switch (direction) {
         case "NORTH":
           requestedLoc = { y: location.y + 1 };
-          if (requestedLoc.y <= tableTopSize.y) movedLocation = requestedLoc;
+          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y > 0)
+            movedLocation = requestedLoc;
           break;
 
         case "EAST":
           requestedLoc = { x: location.x + 1 };
-          if (requestedLoc.x <= tableTopSize.x) movedLocation = requestedLoc;
-
+          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x > 0)
+            movedLocation = requestedLoc;
           break;
 
         case "SOUTH":
           requestedLoc = { y: location.y - 1 };
-          if (requestedLoc.y <= tableTopSize.y) movedLocation = requestedLoc;
-
+          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y > 0)
+            movedLocation = requestedLoc;
           break;
 
         case "WEST":
           requestedLoc = { x: location.x - 1 };
-          if (requestedLoc.x <= tableTopSize.x) movedLocation = requestedLoc;
-
+          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x > 0)
+            movedLocation = requestedLoc;
           break;
 
         default:
           break;
       }
 
-      return { ...state, location: { ...location, movedLocation } };
+      return { ...state, location: { ...location, ...movedLocation } };
     }
 
     case "ROTATE": {
-      if (!state.isPlaced) return { ...state };
+      const { isPlaced, direction } = state;
 
-      return { ...state };
+      if (!isPlaced) return { ...state };
+
+      let newDirection;
+      if (payload === "LEFT") {
+        if (direction === "NORTH") newDirection = "WEST";
+        if (direction === "EAST") newDirection = "NORTH";
+        if (direction === "SOUTH") newDirection = "EAST";
+        if (direction === "WEST") newDirection = "NORTH";
+      }
+      if (payload === "RIGHT") {
+        if (direction === "NORTH") newDirection = "EAST";
+        if (direction === "EAST") newDirection = "SOUTH";
+        if (direction === "SOUTH") newDirection = "WEST";
+        if (direction === "WEST") newDirection = "NORTH";
+      }
+
+      return { ...state, direction: newDirection };
     }
 
     default:
