@@ -14,17 +14,27 @@ export const MoveInputField = ({ robotActions }) => {
       const payload = args[1].split(",");
       place(...payload);
     }
-    // if (command === "MOVE")
-    // if (command === "LEFT")
-    // if (command === "RIGHT")
+
+    if (command === "MOVE") moveForward();
+
+    if (command === "LEFT") rotate("LEFT");
+
+    if (command === "RIGHT") rotate("RIGHT");
+
     // if (command === "REPORT")
+
+    setInput("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Move Robot:{" "}
-        <input type="text" onChange={(e) => setInput(e.target.value)} />
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
       </label>
     </form>
   );
