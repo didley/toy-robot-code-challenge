@@ -1,16 +1,21 @@
 # Toy Robot Code Challenge
-## Available Scripts
+
+
+## <b>[Visit the live app](https://didley-toy-robot.netlify.app)</b>
+
+
+### Available Scripts
 
 In the project directory, you can run:
 
-### `yarn install`
+#### `yarn install`
 
 Sets up project and installs dependencies
-### `yarn start`
+#### `yarn start`
 
 Runs the app in the development mode.\
 
-### `yarn test`
+#### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
 
