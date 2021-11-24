@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const MoveInputField = ({ robotActions }) => {
+export const MoveInputField = ({ robotActions, requestReport }) => {
   const { place, moveForward, rotate } = robotActions;
   const [input, setInput] = useState("");
 
@@ -21,7 +21,7 @@ export const MoveInputField = ({ robotActions }) => {
 
     if (command === "RIGHT") rotate("RIGHT");
 
-    // if (command === "REPORT")
+    if (command === "REPORT") requestReport();
 
     setInput("");
   };
