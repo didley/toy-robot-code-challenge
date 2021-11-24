@@ -3,12 +3,25 @@ export const robotReducer = (state, action) => {
 
   switch (type) {
     case "PLACE": {
-      return {
-        ...state,
-        isPlaced: true,
-        location: { x: parseInt(payload.x), y: parseInt(payload.y) },
-        direction: payload.direction,
-      };
+      const { tableTopSize } = state;
+
+      const requestedLoc = { x: parseInt(payload.x), y: parseInt(payload.y) };
+
+      if (
+        requestedLoc.x <= tableTopSize.x &&
+        requestedLoc.x >= 0 &&
+        requestedLoc.y <= tableTopSize.y &&
+        requestedLoc.y >= 0
+      ) {
+        return {
+          ...state,
+          isPlaced: true,
+          location: requestedLoc,
+          direction: payload.direction,
+        };
+      }
+
+      return { ...state };
     }
 
     case "MOVE_FORWARD": {
@@ -22,25 +35,25 @@ export const robotReducer = (state, action) => {
       switch (direction) {
         case "NORTH":
           requestedLoc = { y: location.y + 1 };
-          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y > 0)
+          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y >= 0)
             movedLocation = requestedLoc;
           break;
 
         case "EAST":
           requestedLoc = { x: location.x + 1 };
-          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x > 0)
+          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x >= 0)
             movedLocation = requestedLoc;
           break;
 
         case "SOUTH":
           requestedLoc = { y: location.y - 1 };
-          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y > 0)
+          if (requestedLoc.y <= tableTopSize.y && requestedLoc.y >= 0)
             movedLocation = requestedLoc;
           break;
 
         case "WEST":
           requestedLoc = { x: location.x - 1 };
-          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x > 0)
+          if (requestedLoc.x <= tableTopSize.x && requestedLoc.x >= 0)
             movedLocation = requestedLoc;
           break;
 
