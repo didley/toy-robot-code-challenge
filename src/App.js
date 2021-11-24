@@ -2,7 +2,7 @@ import "./App.css";
 import { useToyRobot } from "./hooks/useToyRobot";
 import { useRobotReport } from "./hooks/useRobotReport";
 import { ReportLog } from "./components/ReportLog";
-import { MoveInputField } from "./components/MoveInputField";
+import { MoveInput } from "./components/MoveInput";
 
 function App() {
   const TABLE_TOP_SIZE = { x: 4, y: 4 };
@@ -25,10 +25,7 @@ function App() {
           <li>REPORT</li>
         </ul>
       </div>
-      <MoveInputField
-        robotActions={robotActions}
-        requestReport={requestReport}
-      />
+      <MoveInput robotActions={robotActions} requestReport={requestReport} />
       <br />
       <ReportLog reportLogs={reportLogs} />
     </div>
