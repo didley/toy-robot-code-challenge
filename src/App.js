@@ -5,10 +5,9 @@ import { ReportLog } from "./components/ReportLog";
 import { MoveInputField } from "./components/MoveInputField";
 
 function App() {
-  const [robotState, robotActions] = useToyRobot({
-    x: 4,
-    y: 4,
-  });
+  const TABLE_TOP_SIZE = { x: 4, y: 4 };
+
+  const [robotState, robotActions] = useToyRobot(TABLE_TOP_SIZE);
   const [reportLogs, requestReport] = useRobotReport(robotState);
 
   console.log(robotState, reportLogs);
